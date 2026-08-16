@@ -1,12 +1,12 @@
 # Meditations
 
 ```bash
-gh api repos/dlpwaters/meditations/contents/install.sh --jq .content | base64 --decode | bash
+curl -fsSL https://raw.githubusercontent.com/dlpwaters/meditations/main/install.sh | bash
 ```
 
 An illustrated, local-first reader for Marcus Aurelius's *Meditations*, built around the complete public-domain George Long translation. Read offline, move between the original and a familiar-language edition, or ask a private question and explore the most relevant passages.
 
-> The repository is private. Installation requires [GitHub CLI](https://cli.github.com/) authenticated with an account that can access `dlpwaters/meditations`, plus Node.js and npm.
+Installation requires Git, Node.js, npm, and curl. No GitHub account or API key is needed for offline reading.
 
 ![Meditations start screen](docs/screenshots/start-screen.png)
 
@@ -50,7 +50,7 @@ Your API key stays in the local `.env.local` file with owner-only permissions. T
 Run the installation command again. An existing installation is updated only with a safe fast-forward pull, then its runtime dependencies are refreshed. To choose another location:
 
 ```bash
-MEDITATIONS_INSTALL_DIR=/your/path gh api repos/dlpwaters/meditations/contents/install.sh --jq .content | base64 --decode | bash
+curl -fsSL https://raw.githubusercontent.com/dlpwaters/meditations/main/install.sh | MEDITATIONS_INSTALL_DIR=/your/path bash
 ```
 
 ## Development
