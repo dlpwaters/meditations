@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditations</title>
+    <link rel="stylesheet" href="/src/styles.css">
+    <link rel="stylesheet" href="/src/start.css">
+    <link rel="stylesheet" href="/src/reader.css">
+  </head>
+  <body>
+    <main>
+      <section data-view="setup" aria-labelledby="setup-title">
+        <div class="setup-inscription">
+        <p class="eyebrow">A private inscription</p>
+        <h1 id="setup-title">Set up Ask Marcus</h1>
+        <p class="view-introduction">Add your key to ask for guidance grounded in the book. It stays on this device and is used only for your requests.</p>
+        <form id="setup-form">
+          <label for="setup-key">OpenAI API key</label>
+          <input id="setup-key" name="key" type="password" autocomplete="off" required>
+          <button id="save-setup-key" type="submit">Save and Continue</button>
+        </form>
+        <button id="skip-setup" type="button">Continue Without AI</button>
+        <p id="setup-status" role="status"></p>
+        </div>
+      </section>
+      <section data-view="start" hidden aria-labelledby="start-title">
+        <div class="start-portrait" aria-hidden="true"></div>
+        <div class="start-content">
+        <p class="eyebrow">Marcus Aurelius</p>
+        <h1 id="start-title">Meditations</h1>
+        <p class="view-introduction">Return to the pages, or bring one honest question to the wisdom within them.</p>
+        <div class="primary-actions">
+          <button id="read-meditations" type="button" class="primary-action">Read Meditations</button>
+          <button id="ask-marcus" type="button" class="primary-action">Ask Marcus</button>
+        </div>
+        <button id="replace-key" type="button" class="secondary-action">Replace Key</button>
+        <p id="start-status" role="status"></p>
+        </div>
+      </section>
+      <section data-view="ask" hidden aria-labelledby="ask-title">
+        <div class="ask-letter">
+        <p class="eyebrow">A private page</p>
+        <h1 id="ask-title">Ask Marcus</h1>
+        <p class="view-introduction">Write plainly. Your question is not saved.</p>
+        <form id="ask-form">
+          <label for="ask-input">What is on your mind?</label>
+          <textarea id="ask-input" maxlength="4000" aria-describedby="ask-counter" required></textarea>
+          <div class="ask-form-footer"><p id="ask-counter" aria-live="polite"></p><button id="submit-ask" type="submit">Ask Marcus</button></div>
+        </form>
+        <p id="ask-status" role="status"></p>
+        <section id="ask-results" aria-live="polite">
+          <p class="ask-empty"><span class="ask-empty-kicker">Before the reply</span>Begin with the question that has stayed with you.</p>
+        </section>
+        <div class="ask-result-actions"><button id="retry-ask" type="button" hidden>Retry</button><button id="explore-sections" type="button" hidden>Explore These Sections</button></div>
+        <button id="back-to-start" type="button" class="text-action">Back to Start</button>
+        </div>
+      </section>
+      <section id="reader" data-view="reader" hidden>
+      <header class="masthead">
+        <p>Marcus Aurelius</p><h1>Meditations</h1>
+        <div class="reader-tools">
+          <button id="full-book" type="button">Full Book</button>
+          <button id="contents-button" type="button">Contents</button><button id="original-mode" type="button" aria-pressed="true">Original</button><button id="familiar-mode" type="button" aria-pressed="false">Familiar</button><button id="random-page" type="button" aria-pressed="false">Random</button><button id="fullscreen-toggle" type="button">Full screen</button>
+        </div>
+      </header>
+      <p id="reader-status" role="status">Opening the book…</p>
+      <aside id="contents-panel" hidden aria-label="Contents"><div class="contents-list"></div></aside>
+      <section class="book-shell" aria-label="Meditations open book"><div id="book-pages"></div></section>
+      <nav class="reader-controls" aria-label="Page navigation"><button id="previous-page" type="button">Previous</button><span id="progress" aria-live="polite">—</span><button id="next-page" type="button">Next</button></nav>
+      </section>
+    </main>
+    <script src="/node_modules/page-flip/dist/js/page-flip.browser.js"></script>
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>

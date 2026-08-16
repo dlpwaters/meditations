@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+PROJECT_DIR="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
+READER_URL="http://127.0.0.1:4173"
+NO_OPEN=false
+
+if [[ "${1:-}" == "--no-open" ]]; then
+  NO_OPEN=true
+fi
+
+if ! curl --fail --silent --show-error "$READER_URL" >/dev/null 2>&1; then
+  (
+    cd "$PROJECT_DIR"
+    nohup setsid node server.mjs >/tmp/meditations-reader.log 2>&1 &
+  )
+  for attempt in {1..30}; do
+    if curl --fail --silent "$READER_URL" >/dev/null 2>&1; then
+      break
+    fi
+    sleep 0.1
+  done
+fi
+
+if [[ "$NO_OPEN" == false ]] && command -v xdg-open >/dev/null 2>&1; then
+  xdg-open "$READER_URL" >/dev/null 2>&1 &
+fi
+
+printf '%s\n' "$READER_URL"

@@ -1,0 +1,14 @@
+{
+  "cases": [
+    { "id": "grief", "question": "A fictional person is grieving the death of a longtime neighbor. What is a steady first step for today?", "acceptableBooks": [2, 4, 12], "acceptableThemes": ["acceptance", "nature", "loss"] },
+    { "id": "conflict", "question": "A fictional teammate and colleague disagree sharply about a shared project. How can they respond without escalating?", "acceptableBooks": [2, 6, 11], "acceptableThemes": ["cooperation", "kindness", "judgment"] },
+    { "id": "uncertainty", "question": "A fictional student is waiting for an important decision and cannot know the outcome. What should they focus on?", "acceptableBooks": [2, 4, 7], "acceptableThemes": ["control", "present", "choice"] },
+    { "id": "failure", "question": "A fictional craftsperson made a public mistake and feels discouraged. What perspective could help them continue?", "acceptableBooks": [4, 5, 8], "acceptableThemes": ["action", "effort", "character"] },
+    { "id": "anger", "question": "A fictional commuter feels angry after being treated rudely. How can they pause before responding?", "acceptableBooks": [2, 6, 11], "acceptableThemes": ["anger", "judgment", "patience"] },
+    { "id": "loneliness", "question": "A fictional retiree feels isolated after moving to a new town. What is a humane next step?", "acceptableBooks": [2, 5, 9], "acceptableThemes": ["community", "kindness", "shared"] },
+    { "id": "responsibility", "question": "A fictional manager must make an unpopular but fair decision. What should guide the choice?", "acceptableBooks": [3, 5, 9], "acceptableThemes": ["justice", "duty", "common"] },
+    { "id": "mortality", "question": "A fictional adult is unsettled by thoughts about mortality. How can they return to living well today?", "acceptableBooks": [2, 4, 12], "acceptableThemes": ["death", "nature", "present"] },
+    { "id": "unfair-treatment", "question": "A fictional worker was blamed for another person's error. How can they answer with self-respect?", "acceptableBooks": [4, 6, 11], "acceptableThemes": ["justice", "judgment", "character"] },
+    { "id": "loss-of-direction", "question": "A fictional recent graduate feels unsure what matters after a major life change. What could ground the next week?", "acceptableBooks": [2, 5, 12], "acceptableThemes": ["purpose", "action", "nature"] }
+  ]
+}

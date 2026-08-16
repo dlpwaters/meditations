@@ -1,0 +1,21 @@
+{
+  "name": "meditations-reader",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch-source": "node scripts/fetch-source.mjs",
+    "parse": "node scripts/parse-meditations.mjs",
+    "generate:modern": "node scripts/generate-modern-readings.mjs",
+    "generate:lessons": "node scripts/generate-lesson-tags.mjs",
+    "generate:retrieval": "node scripts/generate-retrieval-index.mjs",
+    "test": "node --test",
+    "evaluate:marcus": "node scripts/evaluate-ask-marcus.mjs",
+    "test:live": "node scripts/evaluate-ask-marcus.mjs",
+    "setup:key": "node scripts/save-existing-api-key.mjs",
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "openai": "^5.23.2",
+    "page-flip": "^2.0.7"
+  }
+}
