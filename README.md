@@ -1,57 +1,66 @@
-# Meditations Reader
+# Meditations
 
-A local reader for the complete public-domain George Long translation of Marcus Aurelius’s *Meditations*. Read the complete book offline: each numbered section is a stable local JSON page, and the original text is always available without an API key.
+```bash
+gh api repos/dlpwaters/meditations/contents/install.sh --jq .content | base64 --decode | bash
+```
 
-## Read
+An illustrated, local-first reader for Marcus Aurelius's *Meditations*, built around the complete public-domain George Long translation. Read offline, move between the original and a familiar-language edition, or ask a private question and explore the most relevant passages.
 
-Start the reader with:
+> The repository is private. Installation requires [GitHub CLI](https://cli.github.com/) authenticated with an account that can access `dlpwaters/meditations`, plus Node.js and npm.
+
+![Meditations start screen](docs/screenshots/start-screen.png)
+
+## What it offers
+
+- The complete book, organized into 415 stable sections.
+- Original and familiar-language reading modes.
+- A realistic open-book layout with an illustration for every section.
+- Contents, random reading, keyboard navigation, and fullscreen mode.
+- Fully offline reading after installation.
+- Optional Ask Marcus guidance grounded in trusted local passages.
+
+| Ask a private question | Read the illustrated book |
+| --- | --- |
+| ![Ask Marcus screen](docs/screenshots/ask-marcus.png) | ![Illustrated reader](docs/screenshots/reader.png) |
+
+## Start reading
+
+After installation, run:
 
 ```bash
 meditations
 ```
 
-It opens at `http://127.0.0.1:4173`. Use `meditations --no-open` to start only the loopback server.
-
-The reader includes Original and Familiar versions, a contents view, Random, Previous and Next controls, and left/right arrow-key navigation. Use Fullscreen to enter fullscreen mode and `Escape` to leave it. Choose Full Book to read the complete text in one continuous view.
-
-## First-run setup and Ask Marcus
-
-On first run, API-key setup is optional. Select Skip to continue with all offline reading features; you can add or replace a key later through Setup. The key is stored only in `.env.local`, which must be owner-only (`0600`). To remove it, delete `.env.local` without opening or printing it, then use Setup again if you later want to add a replacement.
-
-Ask Marcus offers a guided question flow plus a ten-section Explore path. For either a synthetic evaluation question or a question you enter, the server sends the question to OpenAI for moderation, query embedding, and a Responses-generation request. Final selection receives only 32 trusted local candidate passages. Responses requests use `store: false`, and the app does not persist questions or responses.
-
-`.env.local` and other environment files are excluded from GitHub; `.env.example` contains only the empty `OPENAI_API_KEY=` variable. Do not place a key in any other project file.
-
-## Data and maintenance
-
-The source snapshot is `data/source/meditations-long.txt`; generated reader pages are `data/meditations.pages.json`. Regenerate the public retrieval index with:
+The app opens at `http://127.0.0.1:4173` and remains bound to your computer. To start the local server without opening a browser:
 
 ```bash
-npm run generate:retrieval
+meditations --no-open
 ```
 
-`data/meditations.retrieval.json` contains public, non-personal source vectors only. See `docs/sources.md` for attribution and rights information.
+Use the Contents button to jump directly to a section, switch between Original and Familiar, choose Random for a different passage, or use the left and right arrow keys to turn pages.
 
-## Development and checks
+## Privacy and Ask Marcus
+
+Reading does not require an API key or an internet connection. The optional Ask Marcus feature uses OpenAI for moderation, retrieval, and a grounded response, with `store: false`; questions and responses are not saved by the app.
+
+Your API key stays in the local `.env.local` file with owner-only permissions. That file is ignored by Git and is never part of the repository. The installer does not create, copy, read, or upload an API key. You can skip setup and add a key later from the app.
+
+## Update or reinstall
+
+Run the installation command again. An existing installation is updated only with a safe fast-forward pull, then its runtime dependencies are refreshed. To choose another location:
 
 ```bash
-npm install
-npm run fetch-source
-npm run parse
-npm run generate:modern
-npm run generate:lessons
-npm run generate:retrieval
+MEDITATIONS_INSTALL_DIR=/your/path gh api repos/dlpwaters/meditations/contents/install.sh --jq .content | base64 --decode | bash
+```
+
+## Development
+
+```bash
+npm ci
 npm test
 npm start
 ```
 
-`npm run test:live` runs the approved live Ask Marcus evaluation and may use the configured API key; do not run it casually. The measured model decision is `gpt-5.6-luna` with low reasoning: the strengthened evaluation recorded 10/10 valid, 10/10 relevant, 8/10 automated modern/practical style, no duplicate sets, and about 5.6 seconds average. This automated quality gate is useful for regression checks, but it is not a substitute for human judgment.
+The source snapshot lives at `data/source/meditations-long.txt`; reader pages are stored in `data/meditations.pages.json`. See [docs/sources.md](docs/sources.md) for source attribution and rights information.
 
-## Manual acceptance checklist
-
-- Start `meditations` and confirm the server remains loopback-only.
-- Read Original and Familiar passages; use contents, Random, Previous/Next, arrow keys, fullscreen/`Escape`, and Full Book.
-- Confirm first-run Setup can be skipped and reopened.
-- With a deliberately configured key, try the Ask Marcus flow and all ten Explore sections.
-
-Browser visual verification depends on an available interactive browser session and is not guaranteed by automated checks alone.
+Generation and evaluation commands are documented in `package.json`. `npm run test:live` uses the configured API key and should be run intentionally.
