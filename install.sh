@@ -1,21 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPOSITORY="dlpwaters/meditations"
+REPOSITORY_URL="https://github.com/dlpwaters/meditations.git"
 INSTALL_DIR="${MEDITATIONS_INSTALL_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/meditations}"
 BIN_DIR="${XDG_BIN_HOME:-$HOME/.local/bin}"
 
-for command_name in gh git node npm; do
+for command_name in git node npm; do
   if ! command -v "$command_name" >/dev/null 2>&1; then
     printf 'Meditations requires %s. Install it and run this command again.\n' "$command_name" >&2
     exit 1
   fi
 done
-
-if ! gh auth status >/dev/null 2>&1; then
-  printf 'Sign in first with: gh auth login\n' >&2
-  exit 1
-fi
 
 if [[ -d "$INSTALL_DIR/.git" ]]; then
   git -C "$INSTALL_DIR" pull --ff-only
@@ -24,7 +19,7 @@ elif [[ -e "$INSTALL_DIR" ]]; then
   exit 1
 else
   mkdir -p "$(dirname "$INSTALL_DIR")"
-  gh repo clone "$REPOSITORY" "$INSTALL_DIR"
+  git clone "$REPOSITORY_URL" "$INSTALL_DIR"
 fi
 
 npm ci --omit=dev --prefix "$INSTALL_DIR"
